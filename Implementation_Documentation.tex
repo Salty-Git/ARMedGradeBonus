@@ -1,0 +1,50 @@
+﻿\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+% Code listing settings
+\lstset{
+    language=[Sharp]C,
+    basicstyle=\small\ttfamily,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny,
+    breaklines=true,
+    frame=single
+}
+
+\title{Surgical Guidance System\\Implementation Documentation}
+\author{}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Overview}
+
+An AR-based surgical guidance system in Unity that provides real-time visual feedback to guide users through a sequence of target points with dynamic distance display and orientation-aware UI.
+
+\section{Implemented Features}
+
+\subsection{Target Guidance System}
+The system guides users to the closest unactivated target using a three-state model: \textbf{Idle} (Blue), \textbf{Targeted} (Red), and \textbf{Activated} (Green). A red \texttt{LineRenderer} connects the tool tip to the current target, updating dynamically as targets are reached.
+
+\subsection{Distance Display with Adaptive Positioning}
+The \texttt{DistanceDisplay} component shows real-time distance to the closest target in millimeters. It uses dual anchors that switch based on tool orientation (via dot product calculation), ensuring the display never obscures the view. Text always faces the camera and provides color-coded feedback: green ($<10$ mm), yellow (10-30 mm), or white ($>30$ mm).
+
+\subsection{Collision Detection}
+Target activation uses Unity's trigger colliders. When the tool tip (tagged ``ToolTip'' with Rigidbody) enters a target's sphere collider, the target transitions to Activated state permanently.
+
+\section{Conclusion}
+
+The system combines visual guidance lines, color-coded targets, adaptive UI positioning, and real-time distance feedback to create an effective AR surgical navigation tool with state-based architecture for reliable operation.
+
+\end{document}
+
